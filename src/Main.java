@@ -10,163 +10,74 @@ public class Main {
 
     do {
 
-      System.out.println("Welcome to Smart City Management System");
+      System.out.println("\nSmart City System");
       System.out.println("1. Add Building");
       System.out.println("2. Add Hospital");
       System.out.println("3. Add Cinema");
       System.out.println("4. Add Apartment");
-      System.out.println("5. View All Buildings");
+      System.out.println("5. View Buildings");
       System.out.println("6. Exit");
-      System.out.print("Choose option: ");
+      System.out.print("Choose: ");
 
       choice = input.nextInt();
       input.nextLine();
 
-      switch (choice) {
+      try {
 
-        case 1:
+        if (choice >= 1 && choice <= 4) {
 
-          System.out.print("Enter Building Name: ");
+          System.out.print("Name: ");
           String name = input.nextLine();
 
-          System.out.print("Enter Building Address: ");
+          System.out.print("Address: ");
           String address = input.nextLine();
 
-          System.out.print("Enter Number of Floors: ");
+          System.out.print("Floors: ");
           int floors = input.nextInt();
           input.nextLine();
 
-          saveToFile("Building," + name + "," + address + "," + floors);
+          String type = "";
 
-          System.out.println("Building saved!");
-          break;
+          if (choice == 1) type = "Building";
+          if (choice == 2) type = "Hospital";
+          if (choice == 3) type = "Cinema";
+          if (choice == 4) type = "Apartment";
 
-        case 2:
+          FileWriter fw = new FileWriter("buildings.txt", true);
+          fw.write(type + "," + name + "," + address + "," + floors + "\n");
+          fw.close();
 
-          System.out.print("Enter Hospital Name: ");
-          name = input.nextLine();
+          System.out.println("Saved!");
 
-          System.out.print("Enter Address: ");
-          address = input.nextLine();
+        }
 
-          System.out.print("Enter Floors: ");
-          floors = input.nextInt();
+        else if (choice == 5) {
 
-          System.out.print("Enter Number of Beds: ");
-          int beds = input.nextInt();
-          input.nextLine();
+          BufferedReader br = new BufferedReader(new FileReader("buildings.txt"));
+          String line;
 
-          saveToFile("Hospital," + name + "," + address + "," + floors + "," + beds);
+          System.out.println("\nBuilding List:");
 
-          System.out.println("Hospital saved!");
-          break;
+          while ((line = br.readLine()) != null) {
 
-        case 3:
+            String[] data = line.split(",");
 
-          System.out.print("Enter Cinema Name: ");
-          name = input.nextLine();
+            System.out.println("-------------------");
+            System.out.println("Type: " + data[0]);
+            System.out.println("Name: " + data[1]);
+            System.out.println("Address: " + data[2]);
+            System.out.println("Floors: " + data[3]);
+          }
 
-          System.out.print("Enter Address: ");
-          address = input.nextLine();
+          br.close();
+        }
 
-          System.out.print("Enter Floors: ");
-          floors = input.nextInt();
-
-          System.out.print("Enter Screens: ");
-          int screens = input.nextInt();
-          input.nextLine();
-
-          saveToFile("Cinema," + name + "," + address + "," + floors + "," + screens);
-
-          System.out.println("Cinema saved!");
-          break;
-
-        case 4:
-
-          System.out.print("Enter Apartment Name: ");
-          name = input.nextLine();
-
-          System.out.print("Enter Address: ");
-          address = input.nextLine();
-
-          System.out.print("Enter Floors: ");
-          floors = input.nextInt();
-
-          System.out.print("Enter Units: ");
-          int units = input.nextInt();
-          input.nextLine();
-
-          saveToFile("Apartment," + name + "," + address + "," + floors + "," + units);
-
-          System.out.println("Apartment saved!");
-          break;
-
-        case 5:
-
-          viewBuildings();
-          break;
-
-        case 6:
-          System.out.println("Exiting program...");
-          break;
-
-        default:
-          System.out.println("Invalid option.");
-
+      } catch (Exception e) {
+        System.out.println("Error.");
       }
 
     } while (choice != 6);
 
-    input.close();
+    System.out.println("Program End.");
   }
-
-  public static void saveToFile(String data) {
-
-    try {
-      FileWriter fw = new FileWriter("buildings.txt", true);
-      PrintWriter pw = new PrintWriter(fw);
-
-      pw.println(data);
-      pw.close();
-
-    } catch (IOException e) {
-      System.out.println("Error saving file.");
-    }
-  }
-
-  public static void viewBuildings() {
-
-    try {
-
-      BufferedReader br = new BufferedReader(new FileReader("buildings.txt"));
-      String line;
-
-      System.out.println("\n=== Building List ===");
-
-      while ((line = br.readLine()) != null) {
-
-        String[] data = line.split(",");
-
-        System.out.println("===================");
-        System.out.println("Type: " + data[0]);
-        System.out.println("Name: " + data[1]);
-        System.out.println("Address: " + data[2]);
-        System.out.println("Floors: " + data[3]);
-
-        if (data[0].equals("Hospital"))
-          System.out.println("Beds: " + data[4]);
-
-        if (data[0].equals("Cinema"))
-          System.out.println("Screens: " + data[4]);
-
-        if (data[0].equals("Apartment"))
-          System.out.println("Units: " + data[4]);
-      }
-
-      br.close();
-
-    } catch (IOException e) {
-      System.out.println("No data found.");
-    }
-  }
-}
+}1
