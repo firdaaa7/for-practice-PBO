@@ -62,7 +62,7 @@ public class Main {
 
             String[] data = line.split(",");
 
-            System.out.println("-------------------");
+            System.out.println("==================================");
             System.out.println("Type: " + data[0]);
             System.out.println("Name: " + data[1]);
             System.out.println("Address: " + data[2]);
