@@ -1,83 +1,147 @@
-import java.io.*;
 import java.util.Scanner;
 
 public class Main {
 
   public static void main(String[] args) {
 
-    Scanner input = new Scanner(System.in);
-    int choice;
+    Scanner scanner = new Scanner(System.in);
+    int option;
 
     do {
 
-      System.out.println("\nSmart City System");
-      System.out.println("1. Add Building");
-      System.out.println("2. Add Hospital");
-      System.out.println("3. Add Cinema");
-      System.out.println("4. Add Apartment");
-      System.out.println("5. View Buildings");
-      System.out.println("6. Exit");
-      System.out.print("Choose: ");
+      System.out.println("\nWelcome to Smart City Management System");
+      System.out.println("1. Add New Building");
+      System.out.println("2. Add New Hospital");
+      System.out.println("3. Add New Cinema");
+      System.out.println("4. Add New Apartment");
+      System.out.println("5. Exit");
+      System.out.print("Please select an option: ");
 
-      choice = input.nextInt();
-      input.nextLine();
+      option = scanner.nextInt();
+      scanner.nextLine();
 
-      try {
+      switch (option) {
 
-        if (choice >= 1 && choice <= 4) {
+        case 1:
 
-          System.out.print("Name: ");
-          String name = input.nextLine();
+          System.out.println("Enter Building Name: ");
+          String name = scanner.nextLine();
 
-          System.out.print("Address: ");
-          String address = input.nextLine();
+          System.out.println("Enter Building Address: ");
+          String address = scanner.nextLine();
 
-          System.out.print("Floors: ");
-          int floors = input.nextInt();
-          input.nextLine();
+          System.out.println("Enter Number of Floors: ");
+          int floors = scanner.nextInt();
+          scanner.nextLine();
 
-          String type = "";
+          Building building = new Building(name, address, floors);
 
-          if (choice == 1) type = "Building";
-          if (choice == 2) type = "Hospital";
-          if (choice == 3) type = "Cinema";
-          if (choice == 4) type = "Apartment";
+          System.out.println("Building added successfully!");
+          building.showBuilding();
 
-          FileWriter fw = new FileWriter("buildings.txt", true);
-          fw.write(type + "," + name + "," + address + "," + floors + "\n");
-          fw.close();
+          break;
 
-          System.out.println("Saved!");
+        case 2:
 
-        }
+          System.out.println("Enter Hospital Name: ");
+          String hospitalName = scanner.nextLine();
 
-        else if (choice == 5) {
+          System.out.println("Enter Hospital Address: ");
+          String hospitalAddress = scanner.nextLine();
 
-          BufferedReader br = new BufferedReader(new FileReader("buildings.txt"));
-          String line;
+          System.out.println("Enter Number of Floors: ");
+          int hospitalFloors = scanner.nextInt();
 
-          System.out.println("\nBuilding List:");
+          System.out.println("Enter Number of Beds: ");
+          int beds = scanner.nextInt();
 
-          while ((line = br.readLine()) != null) {
+          System.out.println("Enter Monthly Revenue: ");
+          double hospitalRevenue = scanner.nextDouble();
+          scanner.nextLine();
 
-            String[] data = line.split(",");
+          Hospital hospital = new Hospital(
+                  hospitalName,
+                  hospitalAddress,
+                  hospitalFloors,
+                  beds,
+                  hospitalRevenue
+          );
 
-            System.out.println("==================================");
-            System.out.println("Type: " + data[0]);
-            System.out.println("Name: " + data[1]);
-            System.out.println("Address: " + data[2]);
-            System.out.println("Floors: " + data[3]);
-          }
+          hospital.showBuilding();
 
-          br.close();
-        }
+          break;
 
-      } catch (Exception e) {
-        System.out.println("Error.");
+        case 3:
+
+          System.out.println("Enter Cinema Name: ");
+          String cinemaName = scanner.nextLine();
+
+          System.out.println("Enter Cinema Address: ");
+          String cinemaAddress = scanner.nextLine();
+
+          System.out.println("Enter Number of Floors: ");
+          int cinemaFloors = scanner.nextInt();
+
+          System.out.println("Enter Number of Studios: ");
+          int studios = scanner.nextInt();
+
+          System.out.println("Enter Monthly Revenue: ");
+          double cinemaRevenue = scanner.nextDouble();
+          scanner.nextLine();
+
+          Cinema cinema = new Cinema(
+                  cinemaName,
+                  cinemaAddress,
+                  cinemaFloors,
+                  studios,
+                  cinemaRevenue
+          );
+
+          cinema.showBuilding();
+
+          break;
+
+        case 4:
+
+          System.out.println("Enter Apartment Name: ");
+          String apartmentName = scanner.nextLine();
+
+          System.out.println("Enter Apartment Address: ");
+          String apartmentAddress = scanner.nextLine();
+
+          System.out.println("Enter Number of Floors: ");
+          int apartmentFloors = scanner.nextInt();
+
+          System.out.println("Enter Number of Units: ");
+          int units = scanner.nextInt();
+
+          System.out.println("Enter Monthly Revenue: ");
+          double apartmentRevenue = scanner.nextDouble();
+          scanner.nextLine();
+
+          Apartment apartment = new Apartment(
+                  apartmentName,
+                  apartmentAddress,
+                  apartmentFloors,
+                  units,
+                  apartmentRevenue
+          );
+
+          apartment.showBuilding();
+
+          break;
+
+        case 5:
+          System.out.println("Exiting the system. Goodbye!");
+          break;
+
+        default:
+          System.out.println("Invalid option. Please try again.");
+
       }
 
-    } while (choice != 6);
+    } while (option != 5);
 
-    System.out.println("Program End.");
+    scanner.close();
   }
 }

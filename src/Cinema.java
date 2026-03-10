@@ -1,19 +1,20 @@
 public class Cinema extends Building {
 
-    private int numberOfScreens;
+    private int numberOfStudios;
     private double monthlyRevenue;
 
-    public Cinema(String name, String address, int numberOfFloors, int numberOfScreens) {
+    public Cinema(String name, String address, int numberOfFloors, int numberOfStudios, double monthlyRevenue) {
         super(name, address, numberOfFloors);
-        this.numberOfScreens = numberOfScreens;
-        this.monthlyRevenue = 80000000;
+        this.numberOfStudios = numberOfStudios;
+        this.monthlyRevenue = monthlyRevenue;
     }
 
     @Override
-    public void showbuildings() {
-        super.showbuildings();
-        System.out.println("Number of Screens: " + numberOfScreens);
-        System.out.println("Monthly Revenue: " + monthlyRevenue);
+    public void showBuilding() {
+        super.showBuilding();
         System.out.println("Type: Cinema");
+        System.out.println("Number of Studios: " + numberOfStudios);
+        System.out.println("Monthly Revenue: " + monthlyRevenue);
+        System.out.println("================================");
     }
 }
