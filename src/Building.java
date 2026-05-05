@@ -1,21 +1,20 @@
-public class Building {
+public abstract class Building {
 
-    private String name;
-    private String address;
-    private int numberOfFloors;
+    protected String name;
+    protected String address;
+    protected int numberOfFloors;
+    protected BuildingStatus status;
 
-    public Building(String name, String address, int numberOfFloors) {
+    public Building(String name, String address, int numberOfFloors, BuildingStatus status) {
         this.name = name;
         this.address = address;
         this.numberOfFloors = numberOfFloors;
+        this.status = status;
     }
 
-    public void showBuilding() {
-        System.out.println();
-        System.out.println("================================");
-        System.out.println("Building Name: " + name);
-        System.out.println("Building Address: " + address);
-        System.out.println("Number of Floors: " + numberOfFloors);
-        System.out.println("================================");
+    public abstract void showBuilding();
+
+    public String getName() {
+        return name;
     }
 }
